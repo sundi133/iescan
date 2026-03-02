@@ -1,0 +1,53 @@
+# iescan - Internal Enterprise Security Assessment Configuration
+# Copy this file and fill in your engagement details before scanning.
+
+# Engagement authorization (REQUIRED)
+engagement_id: "ENG-2026-001"
+authorization_ref: "SOW-2026-001-signed.pdf"
+
+# Target scope - define what you are authorized to test
+scope:
+  networks:
+    - "10.0.0.0/24"
+    - "192.168.1.0/24"
+  domains:
+    - "corp.local"
+    - "internal.company.com"
+  hosts:
+    - "10.0.0.1"       # Primary DC
+    - "10.0.0.10"      # SQL Server
+    - "10.0.0.20"      # File Server
+  exclude_hosts:
+    - "10.0.0.254"     # Production gateway - DO NOT TEST
+  exclude_networks:
+    - "10.0.1.0/24"    # Production network - OUT OF SCOPE
+
+# Credentials for authenticated testing
+credentials:
+  username: "pentest_user"
+  password: "CHANGE_ME"
+  domain: "corp.local"
+  use_kerberos: false
+
+# Assessment options
+modules:
+  - "all"              # Run all modules, or specify individual ones:
+  # - "network_discovery"
+  # - "service_assessment"
+  # - "ad_enumeration"
+  # - "kerberos_assessment"
+  # - "gpo_assessment"
+  # - "trust_assessment"
+  # - "share_enumeration"
+  # - "mssql_assessment"
+  # - "mysql_assessment"
+  # - "postgresql_assessment"
+  # - "erp_assessment"
+  # - "privesc_pathfinder"
+
+# Scan settings
+threads: 10
+timeout: 30
+verbose: false
+safe_mode: true        # Avoid destructive operations
+output_dir: "./reports"
